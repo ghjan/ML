@@ -1,0 +1,8 @@
+*.pdf
+*.ppt
+*.pptx
+*.mp4
+*.rar
+*.zip
+.RData
+.Rhistory
