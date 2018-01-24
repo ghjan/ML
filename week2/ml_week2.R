@@ -231,10 +231,10 @@ plot(yn.rst~yn.fit)
 data(iris)
 lm.iris <- lm(iris$Sepal.Length~iris$Sepal.Width) 
 plot(lm.iris)
-第一张图就是残差图 残差的正态分布性 比较随机均匀分布在x轴附近
-第二张图是Normal Q-Q图 残差的正态分布性 也会显示高杠杆值 偏离值
-第三张图是Scale-Location图 残差的同方差性 比较均匀的分布在水平线附近
-第四张图是Residuals vs. leverage 看高杠杆值 Cook距离用来检测是否强影响点 
+# 第一张图就是残差图 残差的正态分布性 比较随机均匀分布在x轴附近
+# 第二张图是Normal Q-Q图 残差的正态分布性 也会显示高杠杆值 偏离值
+# 第三张图是Scale-Location图 残差的同方差性 比较均匀的分布在水平线附近
+# 第四张图是Residuals vs. leverage 看高杠杆值 Cook距离用来检测是否强影响点 
 
 R数据分析10 
 R语言实战读书笔记(八)回归
