@@ -3,6 +3,8 @@
 *.ppt
 *.pptx
 *.mp4
+*.jpg
+*.png
 *.rar
 *.zip
 .RData
