@@ -45,8 +45,7 @@ def write_csv(filename, content, header=None):
     if header:
         csvwriter.csvwriterow(header)
     for row in content:
-        encoderow = list(row) if isinstance(row, Iterable) and type(
-            row) not in (unicode, str) else [row, ]
+        encoderow = list(row) if isinstance(row, Iterable) and not isinstance(row, str) else [row, ]
         csvwriter.writerow(encoderow)
 
 
