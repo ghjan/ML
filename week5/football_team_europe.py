@@ -64,14 +64,21 @@ def _parse_team_data(teams, teamname_home, col_names, subtotal):
 def _process_team_data(teams, league):
     match_filename = 'match_{}.csv'.format(league)
     csv_reader = csv.reader(open(match_filename, encoding='utf-8'))
-    col_names = None
-    for row in csv_reader:
-        if not row or not row[0]:
+    matches = [int(row[0]) for row in csv_reader if row or row[0] and not math.isnan(row[0])]
+    _test(teams, league, matches=matches)
+
+
+def _test(teams, league='germany', matches=[10854899, 10854948, 10854911, 10855058, 10855063]):
+    for index in matches:
+        if not index or not index or math.isnan(index):
             continue
-        try:
-            col_names, _, _2 = _analyze_team_data(teams, int(row[0]))
-        except:
-            continue
+        col_names, _, _2 = _analyze_team_data(teams, int(index))
+    # 数据写入csv文件
+    if teams and league and col_names:
+        _post_process(teams, league, col_names)
+
+
+def _post_process(teams, league, col_names):
     # 数据写入csv文件
     headers = copy.copy(col_names)
     headers.insert(0, 'team')
@@ -86,28 +93,6 @@ def _process_team_data(teams, league):
         _cal_team_data(teams['subtotal'])
         write_dict2csv('teams_{}_subtotal.csv'.format(league), teams['subtotal'], header=headers,
                        columns=col_names)
-
-
-def test(teams, matchs=[10854899, 10854948]):
-    league = 'germany'
-    for index in matchs:
-        col_names, _, _ = _analyze_team_data(teams, index)
-    if col_names:
-        print(teams)
-        # 数据写入csv文件
-        headers = copy.copy(col_names)
-        headers.insert(0, 'team')
-        if teams['home']:
-            _cal_team_data(teams['home'])
-            write_dict2csv('teams_{}_home.csv'.format(league), teams['home'], header=headers, columns=col_names)
-        if teams['away']:
-            _cal_team_data(teams['away'])
-            write_dict2csv('teams_{}_away.csv'.format(league), teams['away'], header=headers, columns=col_names)
-        teams['subtotal'] = _cal_subtotal(teams['home'], teams['away'])
-        if teams['subtotal']:
-            _cal_team_data(teams['subtotal'])
-            write_dict2csv('teams_{}_subtotal.csv'.format(league), teams['subtotal'], header=headers,
-                           columns=col_names)
 
 
 def _cal_team_data(team_data):
@@ -146,4 +131,4 @@ if __name__ == '__main__':
         if not league or league != 'germany':
             continue
         _process_team_data(teams, league)
-        # test(teams)
+        # _test(teams)
