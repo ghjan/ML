@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-import csv
 import datetime
 import re
-from collections import Iterable
 
 import requests
 
-from week5.consts import url_base, url
-from week5.consts import LEAGUE_MAP
 from week5.consts import HEADERS_GET, HEADERS_FORM
+from week5.consts import LEAGUE_MAP
 from week5.consts import PATTERN_HUPU_SOCCER_REPORT
+from week5.consts import url_base, url
+from week5.util import write_csv
 
 
 def get_match_data(url_base, url, league_id):
@@ -30,16 +29,6 @@ def get_match_data(url_base, url, league_id):
     all_match = re.findall(pattern, rsp.content.decode(encoding='utf-8'))
     match_set = set(all_match)
     return match_set
-
-
-def write_csv(filename, content, header=None):
-    file = open(filename, "w")
-    csvwriter = csv.writer(file, dialect=("excel"))
-    if header:
-        csvwriter.csvwriterow(header)
-    for row in content:
-        encoderow = list(row) if isinstance(row, Iterable) and not isinstance(row, str) else [row, ]
-        csvwriter.writerow(encoderow)
 
 
 for k, v in LEAGUE_MAP.items():
