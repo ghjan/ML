@@ -229,8 +229,8 @@ if __name__ == '__main__':
         'subtotal': defaultdict(dict),
         'matches': defaultdict(dict),
     }
-    _test(teams)
-    # for league in LEAGUE_MAP:
-    #     if not league or league != 'germany':
-    #         continue
-    #     _process_team_data(teams, league)
+    # _test(teams)
+    for league in LEAGUE_MAP:
+        if not league or league != 'germany':
+            continue
+        _process_team_data(teams, league)
